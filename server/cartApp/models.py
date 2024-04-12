@@ -8,6 +8,7 @@ class Item(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField(default='')
     quantity = models.IntegerField(default=0)
+    photo = models.ImageField(upload_to='items/', default='items/default.jpg')
     
     def __str__(self):
         return self.name
@@ -26,6 +27,7 @@ class Cart(models.Model):
     items = models.ManyToManyField(Item, through='CartItem')
     total_price = models.IntegerField(default=0)
     quantity = models.IntegerField(default=0)
+    progress = models.BooleanField(default=False)
     
     def __str__(self):
         return self.user.username
@@ -50,3 +52,9 @@ class Ticket(models.Model):
     
     def __str__(self):
         return f"{self.id}"
+    
+    def serialize(self):
+        return {
+            'id': self.id,
+            'cart': self.cart_id
+        }
