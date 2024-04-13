@@ -19,7 +19,7 @@ class Item(models.Model):
             'name': self.name,
             'price': self.price,
             'description': self.description,
-            'Amount_On_Sale': self.quantity
+            'stock': self.quantity
         }
 
 class Cart(models.Model):
@@ -38,7 +38,7 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.cart.user} x {self.item.name} in Cart {self.cart_id}"
+        return f"{self.cart.user} x {self.item.quantity}x{self.item.name} in Cart {self.cart_id}"
     
     def serialize(self):
         return {
