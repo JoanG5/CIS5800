@@ -26,7 +26,7 @@ class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     items = models.ManyToManyField(Item, through='CartItem')
     total_price = models.IntegerField(default=0)
-    quantity = models.IntegerField(default=0)
+    stock = models.IntegerField(default=0)
     progress = models.BooleanField(default=False)
     
     def __str__(self):
@@ -38,7 +38,7 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.cart.user} x {self.item.quantity}x{self.item.name} in Cart {self.cart_id}"
+        return f"{self.cart.user}: {self.quantity}x {self.item.name}"
     
     def serialize(self):
         return {

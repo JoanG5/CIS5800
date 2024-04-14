@@ -14,8 +14,8 @@ def get_cart(request):
     if request.method == 'GET':
         user = request.user
         cart = Cart.objects.get(user=TEMP_USER) 
-        items = CartItem.objects.filter(cart=cart)
-        items_list = [item.serialize() for item in items]
+        cart_items = CartItem.objects.filter(cart=cart)
+        items_list = [item.serialize() for item in cart_items]
         print(items_list)
         return JsonResponse({'items': items_list})
 
@@ -24,9 +24,18 @@ def add_item(request):
     if request.method == 'POST':
         user = request.user
         data = request.POST
-        print(data)
         item = Item.objects.get(id=data['item'])
         cart = Cart.objects.get(user=TEMP_USER)
+        
+        if Ticket.objects.filter(cart=cart).exists():
+            return JsonResponse({"progress": True, "message": "Ticket already created"})
+
+        if CartItem.objects.filter(item=item, cart=cart).exists():
+            cart_item = CartItem.objects.get(item=item, cart=cart)
+            cart_item.quantity += int(data['quantity'])
+            cart_item.save()
+            return JsonResponse({"message": "Item quantity updated"}, status=200)
+        
         cart_item = CartItem.objects.create(item=item, cart=cart, quantity=data['quantity'])
         cart_item.save()
         return JsonResponse({"message": "Item added to cart"}, status=200)
@@ -48,8 +57,13 @@ def get_items(request):
 def create_ticket(request):
     if request.method == 'POST':
         cart = Cart.objects.get(user=TEMP_USER)
+        if Ticket.objects.filter(cart=cart).exists():
+            ticket = Ticket.objects.get(cart=cart)
+            return JsonResponse({"message": "Ticket already created", "ticket": {'id': ticket.id}})
+        if not CartItem.objects.filter(cart=cart).exists():
+            return JsonResponse({"message": "Cart is empty", "ticket": {'id': 0}})
+        
         ticket = Ticket.objects.create(cart=cart)
-        cart.progress = True
         ticket.save()
         return JsonResponse({"ticket": ticket.serialize(), "message": "Ticket created"}, status=200)
     
@@ -57,6 +71,14 @@ def create_ticket(request):
 def delete_ticket(request, ticketId):
     if request.method == 'DELETE':
         cart = Cart.objects.get(user=TEMP_USER)
-        Ticket.objects.get(id=ticketId).delete()
+        if not Ticket.objects.filter(cart=cart).exists():
+            return JsonResponse({"message": "Ticket not found", "ticket": False})
+        
+        ticket = Ticket.objects.get(cart=cart)
+        cart_items = CartItem.objects.filter(cart=cart)
+        cart_items.delete()
+
+        ticket.delete()
         cart.progress = False
+        cart.save()
         return JsonResponse({"message": "Ticket deleted"}, status=200)
