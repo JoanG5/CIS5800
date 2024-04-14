@@ -19,7 +19,8 @@ class Item(models.Model):
             'name': self.name,
             'price': self.price,
             'description': self.description,
-            'stock': self.quantity
+            'stock': self.quantity,
+            'photo': self.photo.url, 
         }
 
 class Cart(models.Model):
