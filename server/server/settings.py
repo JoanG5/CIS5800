@@ -128,3 +128,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
 ]
+
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+# MEDIA_URL = '/cartApp/'
+# MEDIA_ROOT = BASE_DIR / 'cartApp/'

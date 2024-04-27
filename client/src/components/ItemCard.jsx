@@ -15,10 +15,14 @@ function ItemCard({ props }) {
     console.log(response.data);
   };
 
+  const baseUrl = 'http://127.0.0.1:8000';
+  const imageUrl = `${baseUrl}${props.photo}`;
+
   return (
     <>
       <div className="m-4 bg-blue-300">
         <h1 className="text-3xl font-bold underline">{props.name}</h1>
+        <img src={imageUrl} alt={props.name} width={"250px"} height={"250px"} />
         <p>{props.description}</p>
         <p>{props.price}</p>
         <button
