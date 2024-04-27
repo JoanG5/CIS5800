@@ -18,19 +18,13 @@ function Menu() {
   }, []);
 
   return (
-    <>
+    <div>
       <h1 className="text-3xl font-bold underline">Menu</h1>
       <h2 className="text-xl font-bold">Select an item to add to your cart:</h2>
       <div className="flex flex-row">
-        {items &&
-          items.map((item) => (
-            <ItemCard
-              key={item.id}
-              props={item}
-            />
-          ))}
+        {items && items.map((item) => <ItemCard key={item.id} props={item} />)}
       </div>
-    </>
+    </div>
   );
 }
 

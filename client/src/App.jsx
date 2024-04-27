@@ -5,7 +5,9 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Menu from "./pages/Menu";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Menu from "./pages/Menu"; 
 import Cart from "./pages/Cart";
 import Test from "./pages/Test";
 import "./App.css";
@@ -16,8 +18,9 @@ function App() {
   return (
     <>
       <Router>
+        <Navbar />
         <Routes>
-          <Route path="/" element={<h1>Home</h1>} />
+          <Route path="/" element={<Home/>} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/Test" element={<Test />}/>
