@@ -6,6 +6,14 @@ function CartItemCard({ props }) {
   const imageUrl = `${baseUrl}${props.item.photo}`;
   console.log(props);
 
+  const handleRemove = async () => {
+    const response = await axios.delete(
+      `http://localhost:8000/cart/remove/${props.id}`
+    );
+    console.log(response.data);
+    window.location.reload();
+  };
+
   return (
     <div className="flex justify-center my-3">
       <div className="card lg:card-side bg-blue-200 shadow-xl w-11/12">
@@ -21,11 +29,11 @@ function CartItemCard({ props }) {
             {props.item.name} x{props.quantity}
           </h2>
           <p>{props.item.description}</p>
+          <h2 className="text-lg font-bold">
+            ${Number(parseFloat(props.item.price) * props.quantity).toFixed(2)}
+          </h2>
           <div className="card-actions justify-end">
-            <h2 className="text-lg font-bold ml-2">
-              $
-              {Number(parseFloat(props.item.price) * props.quantity).toFixed(2)}
-            </h2>
+            <button className="btn btn-error w-24 r-0" onClick={handleRemove}>Remove</button>
           </div>
         </div>
       </div>

@@ -35,6 +35,9 @@ function Cart() {
       .then((res) => {
         setTicket(res.data.ticket.id);
         console.log(res.data);
+        if (res.data.ticket.id !== 0) {
+          document.getElementById("my_modal_1").showModal();
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -56,27 +59,45 @@ function Cart() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center m-4">Cart</h1>
+      <div className="min-h-screen">
+        <h1 className="text-3xl font-bold text-center m-4">Cart</h1>
 
-      <div className="container2">
-        <h2 className="text-xl font-bold">Review your order:</h2>
-        <div className="flex flex-col ">
-          {cart &&
-            cart.map((item) => <CartItemCard key={item.id} props={item} />)}
+        <div className="container2">
+          <h2 className="text-xl font-bold">Review your order:</h2>
+          <div className="flex flex-col ">
+            {cart &&
+              cart.map((item) => <CartItemCard key={item.id} props={item} />)}
+          </div>
+          <h2 className="text-lg font-bold">Total: ${total.toFixed(2)}</h2>
+          <div className="flex justify-end">
+            <button
+              onClick={createTicket}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Confirm
+            </button>
+          </div>
         </div>
-        <h2 className="text-lg font-bold">Total: ${total.toFixed(2)}</h2>
-        <button
-          onClick={createTicket}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Confirm
-        </button>
-        <button
-          onClick={deleteTicket}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          END ORDER
-        </button>
+        <dialog id="my_modal_1" className="modal">
+          <div className="modal-box bg-blue-200">
+            <h1 className="text-3xl font-bold text-center">
+              Thank You For Ordering!
+            </h1>
+            <p className="text-xl font-bold text-center mb-4">
+              Your Ticket Number Is:
+            </p>
+            <h1 className="text-9xl font-bold text-center my-3 p-10">
+              {ticket}
+            </h1>
+            <form method="dialog">
+              <div className="flex justify-end">
+                <button className="btn btn-success" onClick={deleteTicket}>
+                  Received Order
+                </button>
+              </div>
+            </form>
+          </div>
+        </dialog>
       </div>
     </>
   );
