@@ -56,25 +56,28 @@ function Cart() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Cart</h1>
-      <h2 className="text-xl font-bold">Review your order:</h2>
-      <div className="flex flex-col">
-        {cart &&
-          cart.map((item) => <CartItemCard key={item.id} props={item} />)}
+      <h1 className="text-3xl font-bold text-center m-4">Cart</h1>
+
+      <div className="container2">
+        <h2 className="text-xl font-bold">Review your order:</h2>
+        <div className="flex flex-col ">
+          {cart &&
+            cart.map((item) => <CartItemCard key={item.id} props={item} />)}
+        </div>
+        <h2 className="text-lg font-bold">Total: ${total.toFixed(2)}</h2>
+        <button
+          onClick={createTicket}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Confirm
+        </button>
+        <button
+          onClick={deleteTicket}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          END ORDER
+        </button>
       </div>
-      <h2 className="text-lg font-bold">Total: ${total.toFixed(2)}</h2>
-      <button
-        onClick={createTicket}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Confirm
-      </button>
-      <button
-        onClick={deleteTicket}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        END ORDER
-      </button>
     </>
   );
 }
