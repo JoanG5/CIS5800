@@ -5,11 +5,10 @@ import AboutJoe from "../assets/About Joe's Deli.png";
 function Home() {
   return (
     <>
-      <div class="container">
-        <h1> Order Your Food At our Deli!</h1>
+      <div class="container" style={{ textAlign: "center" }}>
+        <h1 className="text-4xl font-bold">Order Your Food At our Deli!</h1>
         <p>
-          Joe’s Deli and Grill <br />
-          <br />
+          <h3 className="text-xl my-5 font-bold">Joe’s Deli and Grill</h3>
           Provide a convenient one-stop location for essentials.
           <br />
           Offers groceries, household essentials, and a fresh grill with a
@@ -25,14 +24,20 @@ function Home() {
           <a href="">Order Now</a>
         </button>
       </div>
-      <div class="container2">
-        <h1> About Joe's Deli</h1>
+      <div class="container2" style={{ textAlign: "center" }}>
+        <h1 className="text-4xl font-bold my-5"> About Joe's Deli</h1>
         <div class="centerT">
-          <img class="pizza" src={AboutJoe} width="1000px" height="500px" />
+          <img
+            class="pizza"
+            src={AboutJoe}
+            width="1000px"
+            height="500px"
+            style={{ margin: "0 auto" }}
+          />
         </div>
 
         <div class="Joe's Deli">
-          <h3> Joe's Deli</h3>
+          <h3 className="text-xl my-5 font-bold"> Joe's Deli</h3>
           <p style={{ fontSize: "large" }}>
             The name of the business is Joe’s Deli and Grill. Our goal is to
             develop a location where everyone can come and pick up their

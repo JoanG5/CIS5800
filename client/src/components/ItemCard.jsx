@@ -5,6 +5,9 @@ function ItemCard({ props }) {
   const [amount, setAmount] = useState(0);
 
   const addItem = async () => {
+    if (amount === 0) {
+      return;
+    }
     const formData = new FormData();
     formData.append("item", props.id);
     formData.append("quantity", amount);
@@ -15,28 +18,35 @@ function ItemCard({ props }) {
     console.log(response.data);
   };
 
-  const baseUrl = 'http://127.0.0.1:8000';
+  const baseUrl = "http://127.0.0.1:8000";
   const imageUrl = `${baseUrl}${props.photo}`;
 
   return (
     <>
-      <div className="m-4 bg-blue-300">
-        <h1 className="text-3xl font-bold underline">{props.name}</h1>
-        <img src={imageUrl} alt={props.name} width={"250px"} height={"250px"} />
-        <p>{props.description}</p>
-        <p>{props.price}</p>
-        <button
-          onClick={addItem}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Add to cart
-        </button>
-        <input
-          className="w-10"
-          type="number"
-          onChange={(e) => setAmount(e.target.value)}
-          limit={props.stock}
-        ></input>
+      <div className="m-4 p-4 bg-blue-300 rounded-lg min-w-72">
+        <h1 className="text-3xl font-bold">{props.name}</h1>
+        <img
+          src={imageUrl}
+          alt={props.name}
+          className="w-36 h-36 object-cover rounded-lg mx-auto mb-5"
+        />
+        <p className="text-xl">{props.description}</p>
+        <p className="text-xl mb-5">${props.price}</p>
+        <div className="flex justify-end items-center">
+          <button
+            onClick={addItem}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
+          >
+            Add to cart
+          </button>
+          <input
+            className="w-10 h-10 border-2 border-black rounded-lg"
+            min={0}
+            type="number"
+            onChange={(e) => setAmount(e.target.value)}
+            limit={props.stock}
+          ></input>
+        </div>
       </div>
     </>
   );
