@@ -23,7 +23,7 @@ function ItemCard({ props }) {
 
   return (
     <>
-      <div className="m-4 p-4 bg-blue-300 rounded-lg min-w-72">
+      <div className="m-4 p-4 bg-blue-200 rounded-lg min-w-72">
         <h1 className="text-3xl font-bold">{props.name}</h1>
         <img
           src={imageUrl}
