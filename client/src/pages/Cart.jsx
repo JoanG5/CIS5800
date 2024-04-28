@@ -72,7 +72,7 @@ function Cart() {
           <div className="flex justify-end">
             <button
               onClick={createTicket}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="btn btn-primary w-28"
             >
               Confirm
             </button>
