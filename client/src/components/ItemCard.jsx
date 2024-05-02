@@ -18,8 +18,10 @@ function ItemCard({ props }) {
     console.log(response.data);
   };
 
-  const baseUrl = "http://127.0.0.1:8000";
-  const imageUrl = `${baseUrl}${props.photo}`;
+  const baseUrl = "http://127.0.0.1:8000/static/";
+  const imageUrl = `${baseUrl}${props.photo.slice(9)}`;
+
+  console.log(imageUrl);
 
   return (
     <>
@@ -33,10 +35,7 @@ function ItemCard({ props }) {
         <p className="text-xl">{props.description}</p>
         <p className="text-xl mb-5">${props.price}</p>
         <div className="flex justify-end items-center">
-          <button
-            onClick={addItem}
-            className="btn btn-primary w-28 "
-          >
+          <button onClick={addItem} className="btn btn-primary w-28 ">
             Add to cart
           </button>
           <input

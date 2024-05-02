@@ -26,9 +26,13 @@ function Menu() {
           <h2 className="text-xl font-bold">
             Select an items to add to your cart:
           </h2>
-          <div className="flex flex-row">
+          <div className="flex flex-row flex-wrap">
             {items &&
-              items.map((item) => <ItemCard key={item.id} props={item} />)}
+              items.map((item) => (
+                <div key={item.id} className="w-1/4 p-4 h-full">
+                  <ItemCard props={item} />
+                </div>
+              ))}
           </div>
         </div>
       </div>
