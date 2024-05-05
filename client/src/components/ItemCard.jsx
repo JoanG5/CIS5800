@@ -21,8 +21,6 @@ function ItemCard({ props }) {
   const baseUrl = "http://127.0.0.1:8000/static/";
   const imageUrl = `${baseUrl}${props.photo.slice(9)}`;
 
-  console.log(imageUrl);
-
   return (
     <>
       <div className="m-4 p-4 bg-blue-200 rounded-lg min-w-72">

@@ -2,9 +2,9 @@ import React from "react";
 import axios from "axios";
 
 function CartItemCard({ props }) {
-  const baseUrl = "http://127.0.0.1:8000";
-  const imageUrl = `${baseUrl}${props.item.photo}`;
-  console.log(props);
+  
+  const baseUrl = "http://127.0.0.1:8000/static/";
+  const imageUrl = `${baseUrl}${props.item.photo.slice(9)}`;
 
   const handleRemove = async () => {
     const response = await axios.delete(
